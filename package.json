@@ -1,0 +1,40 @@
+{
+  "_from": "git+https://github.com/JordanZ25/homebridge-mclimate.git",
+  "_id": "homebridge-mclimate@0.0.3",
+  "_inBundle": false,
+  "_integrity": "sha1-F4PE2WJKM+R+77TlaPtGzloEIfs=",
+  "_location": "/homebridge-mclimate",
+  "_phantomChildren": {},
+  "_requested": {
+    "type": "git",
+    "raw": "git+https://github.com/JordanZ25/homebridge-mclimate.git",
+    "rawSpec": "git+https://github.com/JordanZ25/homebridge-mclimate.git",
+    "saveSpec": "git+https://github.com/JordanZ25/homebridge-mclimate.git",
+    "fetchSpec": "https://github.com/JordanZ25/homebridge-mclimate.git",
+    "gitCommittish": "master"
+  },
+  "_requiredBy": [
+    "#USER"
+  ],
+  "_resolved": "git+https://github.com/JordanZ25/homebridge-mclimate.git#60ac871370cac3092e749cfb64ed2ee6d46fbcbb",
+  "_shasum": "caea0e36a7a49145b4728d3e5ee05c80c760a906",
+  "_spec": "git+https://github.com/JordanZ25/homebridge-mclimate.git",
+  "_where": "/Users/mac/Documents/mc/homebridge-mclimate",
+  "bundleDependencies": false,
+  "dependencies": {
+    "axios": "^0.18.0",
+    "request": "^2.65.0"
+  },
+  "deprecated": false,
+  "description": "Mclimate smart plug plugin for homebridge: https://github.com/nfarina/homebridge",
+  "engines": {
+    "homebridge": ">=0.2.0",
+    "node": ">=0.12.0"
+  },
+  "keywords": [
+    "homebridge-plugin"
+  ],
+  "license": "MIT",
+  "name": "homebridge-mclimate",
+  "version": "0.0.3"
+}
