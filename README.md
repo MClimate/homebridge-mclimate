@@ -35,7 +35,7 @@ After that you will be **FINALLY** done.
 
 Configuration sample:
 
-``         
+        
         
     ...
         
@@ -53,7 +53,7 @@ Configuration sample:
         ]
 
     ....
-``
+
 
 
 
