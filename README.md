@@ -35,23 +35,25 @@ After that you will be **FINALLY** done.
 
 Configuration sample:
 
-``....
+``         
+        
+    ...
+        
+        "accessories": [
+            {
+            "accessory": "MClimate-Melissa",
+            "name": "The name of accessory",
+            "serial_number": "Serial number of accessory",
+            "client_id": "Client id from MClimate developers portal",
+            "client_secret": "Client secret from MClimate developers portal",
+            "username": "Use email from your MClimate account",
+            "password": "Use password from your MClimate account"
 
-"accessories": [
-{
-"accessory": "MClimate-Melissa",
-"name": "The name of accessory",
-"serial_number": "Serial number of accessory",
-"client_id": "Client id from MClimate developers portal",
-"client_secret": "Client secret from MClimate developers portal",
-"username": "Use email from your MClimate account",
-"password": "Use password from your MClimate account"
+            }
+        ]
 
-}
-]
-
-....
-```
+    ....
+``
 
 
 
