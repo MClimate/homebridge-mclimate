@@ -64,6 +64,7 @@ class MelissaAccessory {
             this.apiClient.post('provider/send', {
                 "serial_number": this.serial_number,
                 "command": "send_ir_code",
+                "executor":"homebridge",
                 "state": state,
                 "mode": mode,
                 "temp": value,
@@ -135,6 +136,7 @@ class MelissaAccessory {
             this.apiClient.post('provider/send', {
                 "serial_number": this.serial_number,
                 "command": "send_ir_code",
+                "executor":"homebridge",
                 "state": state,
                 "mode": mode,
                 "temp": temp,

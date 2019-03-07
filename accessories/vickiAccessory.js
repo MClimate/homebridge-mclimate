@@ -52,6 +52,7 @@ class VickiAccessory {
             this.apiClient.post('provider/send', {
                 "serial_number" : this.serial_number,
                 "command" : "set_motor_position",
+                // "executor":"homebridge",
                 "position" : Math.floor(value)
               }, {
                     headers: {

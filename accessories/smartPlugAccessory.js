@@ -60,6 +60,7 @@ class SmartPlugAccessory {
         this.apiClient.post("provider/send", {
             "serial_number": this.serial_number,
             "command": "switch_on_off",
+            "executor":"homebridge",
             "state": state
         }, {
                 headers: {
