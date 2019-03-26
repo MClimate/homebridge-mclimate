@@ -43,10 +43,14 @@ class MelissaAccessory {
                     'Content-Type': 'application/json',
                     'Authorization': 'Bearer ' + this.access_token
                 }
-            }).then(function (response) {
+            }).then((response) => {
                 var temp = response.data.provider.temp;
+                this.humidity = response.data.provider.humidity;
                 callback(null, temp)
             })
+    }
+    getCurrentRelativeHumidity (callback){
+        callback(null,this.humidity);
     }
     setTargetTemperature(value, callback) {
         this.apiClient.get('controllers/' + this.serial_number, {
@@ -192,8 +196,15 @@ class MelissaAccessory {
         melissaService.getCharacteristic(Characteristic.CurrentTemperature)
             .on('get', this.getCurrentTemperature.bind(this));
 
+        melissaService.getCharacteristic(Characteristic.CurrentRelativeHumidity)
+            .on('get', this.getCurrentRelativeHumidity.bind(this));
+
         melissaService.getCharacteristic(Characteristic.TargetTemperature)
             .on('set', this.setTargetTemperature.bind(this))
+            .setProps({
+                minValue: 16,
+                maxValue: 30
+            })
             .on('get', this.getTargetTemperature.bind(this))
 
         melissaService.getCharacteristic(Characteristic.TargetHeatingCoolingState)

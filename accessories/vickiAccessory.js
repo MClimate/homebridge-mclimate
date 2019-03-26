@@ -43,10 +43,14 @@ class VickiAccessory {
                     'Content-Type': 'application/json',
                     'Authorization': 'Bearer ' + this.access_token
                 }
-            }).then(function (response) {
+            }).then((response)=>{
                 var temp = response.data.provider.temperature;
+                this.humidity = response.data.provider.humidity;
                 callback(null, temp)
             })
+    }
+    getCurrentRelativeHumidity (callback){
+        callback(null,this.humidity);
     }
     setTargetTemperature(value, callback) {
             this.apiClient.post('provider/send', {
@@ -85,6 +89,9 @@ class VickiAccessory {
         
         vickiService.getCharacteristic(Characteristic.CurrentTemperature)
             .on('get', this.getCurrentTemperature.bind(this));
+
+        vickiService.getCharacteristic(Characteristic.CurrentRelativeHumidity)
+            .on('get', this.getCurrentRelativeHumidity.bind(this));
 
         vickiService.getCharacteristic(Characteristic.TargetTemperature)
             .on('set', this.setTargetTemperature.bind(this))
