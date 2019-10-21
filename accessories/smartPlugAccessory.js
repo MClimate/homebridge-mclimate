@@ -31,9 +31,10 @@ class SmartPlugAccessory {
             var auth = response.data.auth;
             this.access_token = auth.access_token;
             this.refresh_token = auth.refresh_token;
+            this.apiClient = (new axios(this.access_token, this.refresh_token, this.client_id, this.client_secret)).instance;
+
         })
 
-        this.apiClient = (new axios(this.access_token, this.refresh_token, this.client_id, this.client_secret)).instance;
 
 
     }
@@ -44,7 +45,7 @@ class SmartPlugAccessory {
                 'Content-Type': 'application/json',
                 'Authorization': 'Bearer ' + this.access_token
             }
-        }).then(function (response) {
+        }).then(function(response) {
             var controller = response.data.controller;
             var relay_state = controller.relay_state;
             var binaryState = relay_state ? 1 : 0;
@@ -60,16 +61,16 @@ class SmartPlugAccessory {
         this.apiClient.post("provider/send", {
             "serial_number": this.serial_number,
             "command": "switch_on_off",
-            "executor":"homebridge",
+            "executor": "homebridge",
             "state": state
         }, {
-                headers: {
-                    'Content-Type': 'application/json',
-                    'Authorization': 'Bearer ' + this.access_token
-                }
-            }).then(function (response) {
-                console.log("Set power state on the '%s' to %s", plugName, state);
-            })
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': 'Bearer ' + this.access_token
+            }
+        }).then(function(response) {
+            console.log("Set power state on the '%s' to %s", plugName, state);
+        })
     }
 
 

@@ -9,7 +9,7 @@ class VickiAccessory {
         this.binaryState = 0;
         this.log("Starting a Vicki with name '" + this.vickiName + "'...");
         this.serial_number = config['serial_number'];
-        
+
         this.username = config['username'];
         this.password = config['password'];
         this.client_id = config['client_id'];
@@ -30,42 +30,43 @@ class VickiAccessory {
             var auth = response.data.auth;
             this.access_token = auth.access_token;
             this.refresh_token = auth.refresh_token;
+            this.apiClient = (new axios(this.access_token, this.refresh_token, this.client_id, this.client_secret)).instance;
+
         })
 
-    this.apiClient = (new axios(this.access_token, this.refresh_token, this.client_id,this.client_secret)).instance;
     }
 
     getCurrentTemperature(callback) {
         this.apiClient.post('provider/fetch', {
             "serial_number": this.serial_number
         }, {
-                headers: {
-                    'Content-Type': 'application/json',
-                    'Authorization': 'Bearer ' + this.access_token
-                }
-            }).then((response)=>{
-                var temp = response.data.provider.temperature;
-                this.humidity = response.data.provider.humidity;
-                callback(null, temp)
-            })
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': 'Bearer ' + this.access_token
+            }
+        }).then((response) => {
+            var temp = response.data.provider.temperature;
+            this.humidity = response.data.provider.humidity;
+            callback(null, temp)
+        })
     }
-    getCurrentRelativeHumidity (callback){
-        callback(null,this.humidity);
+    getCurrentRelativeHumidity(callback) {
+        callback(null, this.humidity);
     }
     setTargetTemperature(value, callback) {
-            this.apiClient.post('provider/send', {
-                "serial_number" : this.serial_number,
-                "command" : "set_motor_position",
-                // "executor":"homebridge",
-                "position" : Math.floor(value)
-              }, {
-                    headers: {
-                        'Content-Type': 'application/json',
-                        'Authorization': 'Bearer ' + this.access_token
-                    }
-                }).then((response) => {
-                    console.log("Set the Temperature on '%s' to %s", this.vickiName, value);
-                })
+        this.apiClient.post('provider/send', {
+            "serial_number": this.serial_number,
+            "command": "set_motor_position",
+            // "executor":"homebridge",
+            "position": Math.floor(value)
+        }, {
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': 'Bearer ' + this.access_token
+            }
+        }).then((response) => {
+            console.log("Set the Temperature on '%s' to %s", this.vickiName, value);
+        })
 
         callback(null);
     }
@@ -73,20 +74,20 @@ class VickiAccessory {
         this.apiClient.post('provider/fetch', {
             "serial_number": this.serial_number
         }, {
-                headers: {
-                    'Content-Type': 'application/json',
-                    'Authorization': 'Bearer ' + this.access_token
-                }
-            }).then(function (response) {
-                var displayDigits = response.data.provider.displayDigits;
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': 'Bearer ' + this.access_token
+            }
+        }).then(function(response) {
+            var displayDigits = response.data.provider.displayDigits;
 
-                callback(null, displayDigits)
-            })
+            callback(null, displayDigits)
+        })
     }
 
     getServices() {
         let vickiService = new Service.Thermostat(this.name);
-        
+
         vickiService.getCharacteristic(Characteristic.CurrentTemperature)
             .on('get', this.getCurrentTemperature.bind(this));
 
@@ -100,11 +101,11 @@ class VickiAccessory {
                 maxValue: 30
             })
             .on('get', this.getTargetTemperature.bind(this))
-            
+
         vickiService.getCharacteristic(Characteristic.TargetHeatingCoolingState)
             .setValue(1)
-            
-        
+
+
         return [vickiService];
     }
 }
