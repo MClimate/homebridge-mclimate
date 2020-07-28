@@ -120,7 +120,8 @@ class MelissaAccessory {
             } else {
                 switch (value) {
                     case 3:
-                        mode = 0;
+                        state = 1; 
+                        fan = 0
                         break;
                     case 1:
                         mode = 2;
