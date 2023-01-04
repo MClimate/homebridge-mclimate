@@ -51,7 +51,17 @@ class MelissaAccessory {
         })
     }
     getCurrentRelativeHumidity(callback) {
-        callback(null, this.humidity);
+        this.apiClient.post('provider/fetch', {
+            "serial_number": this.serial_number
+        }, {
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': 'Bearer ' + this.access_token
+            }
+        }).then((response) => {
+            var humidity = response.data.provider.humidity;
+            callback(null, humidity)
+        })
     }
     setTargetTemperature(value, callback) {
         this.apiClient.get('controllers/' + this.serial_number, {
@@ -66,6 +76,9 @@ class MelissaAccessory {
             var state = command_log.state;
             var mode = command_log.mode;
             var fan = command_log.fan;
+            if(state == 0){
+                state = 1; 
+            }
             this.apiClient.post('provider/send', {
                 "serial_number": this.serial_number,
                 "command": "send_ir_code",
