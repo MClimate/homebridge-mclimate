@@ -22,7 +22,7 @@
   "_where": "/Users/mac/Documents/mc/homebridge-mclimate",
   "bundleDependencies": false,
   "dependencies": {
-    "axios": "^0.18.0",
+    "axios": "^0.21.2",
     "request": "^2.65.0"
   },
   "deprecated": false,
