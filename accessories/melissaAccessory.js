@@ -38,7 +38,8 @@ class MelissaAccessory {
 
     getCurrentTemperature(callback) {
         this.apiClient.post('provider/fetch', {
-            "serial_number": this.serial_number
+            "serial_number": this.serial_number,
+            "offset": true
         }, {
             headers: {
                 'Content-Type': 'application/json',
